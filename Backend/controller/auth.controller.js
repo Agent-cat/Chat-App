@@ -69,34 +69,41 @@ export const Login = async (req, res) => {
 export const Logout = async (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 0 });
+    res.json({
+      message: "user loged out",
+    });
   } catch (error) {
     console.log(`Error in logout controller ${error.message}`);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-export const Update = async(req,res)=>{
+export const Update = async (req, res) => {
   try {
-    const{profilepic}=req.body;
-    const userId=req.user._id;
-    if(!profilepic){
-      return res.json({message:"required profilrpic"});
+    const { profilepic } = req.body;
+    const userId = req.user._id;
+    if (!profilepic) {
+      return res.json({ message: "required profilrpic" });
     }
-    const uploadresponse=await cloudinary.uploader.upload(profilepic);
-    if(!uploadresponse){
-      return res.json({message:"Failed to upload image"});
+    const uploadresponse = await cloudinary.uploader.upload(profilepic);
+    if (!uploadresponse) {
+      return res.json({ message: "Failed to upload image" });
     }
-   const updateduser= User.findByIdAndUpdate(userId,{profilepic:uploadresponse.secure_url},{new:true})
-  res.status(200).json(updateduser);
+    const updateduser = User.findByIdAndUpdate(
+      userId,
+      { profilepic: uploadresponse.secure_url },
+      { new: true }
+    );
+    res.status(200).json(updateduser);
   } catch (error) {
-     console.log(`Error in update controller ${error.message}`);
+    console.log(`Error in update controller ${error.message}`);
     res.status(500).json({ message: "Internal server error" });
   }
-}
-export const CheckAuth=async(req,res)=>{
+};
+export const CheckAuth = async (req, res) => {
   try {
     res.status(200).json(req.user);
   } catch (error) {
-     console.log(`Error in checkAuth controller ${error.message}`);
+    console.log(`Error in checkAuth controller ${error.message}`);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
