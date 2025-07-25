@@ -1,0 +1,18 @@
+{
+    "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false,
+        "typescript": true,
+        "rust": false,
+        "yaml": true
+    },
+    "editor.inlineSuggest.enabled": true,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "github.copilot.advanced": {
+        "length": 1,
+        "temperature": 0.1
+    }
+}
