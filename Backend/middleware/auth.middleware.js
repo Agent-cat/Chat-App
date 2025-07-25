@@ -1,15 +1,15 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-export const protectedRoute = (req, res, next) => {
+export const protectedRoute = async (req, res, next) => {
   try {
-    const cookie = req.cookie.jwt;
+    const cookie = req.cookies.jwt;
     if (!cookie)
       return res.json({ message: "Unauthorized - No token Provided " });
     const decoded = jwt.verify(cookie, process.env.JWT_SECRET);
-
+  console.log(decoded)
     if (!decoded) return res.json({ message: "Invalid token" });
-    const user = User.find(decoded.userId);
+    const user = await User.findById(decoded.userId);
     req.user = user;
     next();
   } catch (error) {

@@ -32,7 +32,7 @@ export const getMessages = async (req, res) => {
   }
 };
 
-export const sendMessage = async (req, res) => {
+export const sendMessages = async (req, res) => {
   try {
     const {text,image}=req.body;
     const {id:reciverId}=req.params;
@@ -48,7 +48,7 @@ export const sendMessage = async (req, res) => {
       text,
       image:imageurl
     })
-    await newMessage.save;
+    await newMessage.save();
 
     //todo realtime functionality using socket io ;
 
