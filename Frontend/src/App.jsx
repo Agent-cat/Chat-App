@@ -1,13 +1,8 @@
 
-import { useState } from "react"
-import One from "./One";
 const App = () => {
-  const [value,setvalue]=useState(0);
-
   return (
-    <div>
-     
-      <One setvalue={setvalue} value={value} />
+    <div className="text-red-600">
+      
     </div>
   )
 }
