@@ -11,13 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
 app.use(cookieParser());
 app.use("/api/auth", authRouter);
-app.use("/api/message", messageRouter);
+app.use("/api/messages", messageRouter);
 
 app.listen(process.env.PORT, () => {
   ConnectDB();

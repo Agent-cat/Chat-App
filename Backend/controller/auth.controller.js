@@ -22,7 +22,7 @@ export const Signup = async (req, res) => {
       email,
       fullname,
       password: hashedpassword,
-      profilepic,
+      profilepic:profilepic||"https://i.pinimg.com/originals/54/72/d1/5472d1b09d3d724228109d381d617326.jpg",
     });
 
     if (newuser) {
