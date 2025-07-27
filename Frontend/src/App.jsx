@@ -3,12 +3,13 @@ import Navbar from "./components/Navbar";
 import Navroutes from "./routes/Navroutes";
 import { Loader } from "lucide-react";
 import { useAuthStore } from "./store/useAuthStore";
+import { useThemeStore } from "./store/useThemeStore";
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-
+const { theme } = useThemeStore();
   if (isCheckingAuth && !authUser)
     return (
      <div className="flex items-center justify-center h-screen">
@@ -17,7 +18,7 @@ const App = () => {
     );
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
       <Navroutes />
     </div>

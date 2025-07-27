@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import {
-  XSquare,
   Eye,
   EyeOff,
   Loader2,
