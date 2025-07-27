@@ -4,6 +4,7 @@ import Navroutes from "./routes/Navroutes";
 import { Loader } from "lucide-react";
 import { useAuthStore } from "./store/useAuthStore";
 import { useThemeStore } from "./store/useThemeStore";
+import { Toaster } from "react-hot-toast";
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   useEffect(() => {
@@ -21,6 +22,7 @@ const { theme } = useThemeStore();
     <div data-theme={theme}>
       <Navbar />
       <Navroutes />
+      <Toaster />
     </div>
   );
 };
