@@ -5,8 +5,9 @@ import ConnectDB from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRouter from "./routes/message.routes.js";
 import cors from "cors";
+import { app,server } from "./lib/socket.js";
 dotenv.config();
-const app = express();
+
 
 app.use(express.json());
 app.use(
@@ -19,7 +20,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   ConnectDB();
   console.log(`Server is running at http://localhost:${process.env.PORT}`);
 });
