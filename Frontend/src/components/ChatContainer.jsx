@@ -6,14 +6,32 @@ import MessageInput from "./MessageInput";
 import { useAuthStore } from "../store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
 const ChatContainer = () => {
-  const { messages, isMessagesLoading, getMessages, selectedUser } =
-    useChatStore();
-     const { authUser } = useAuthStore();
-     const messageEndRef = useRef(null);
+  const {
+    messages,
+    isMessagesLoading,
+    getMessages,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
+  const { authUser } = useAuthStore();
+  const messageEndRef = useRef(null);
   useEffect(() => {
     getMessages(selectedUser._id);
-  }, [selectedUser._id,getMessages]);
-  console.log(messages);
+    subscribeToMessages();
+    return () => unsubscribeFromMessages();
+  }, [
+    selectedUser._id,
+    getMessages,
+    unsubscribeFromMessages,
+    subscribeToMessages,
+  ]);
+ 
+   useEffect(() => {
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
   if (isMessagesLoading) {
     return (
       <div className="flex-1 flex flex-col overflow-auto">
@@ -23,13 +41,16 @@ const ChatContainer = () => {
       </div>
     );
   }
-  return <div className="flex-1 flex flex-col justify-between overflow-auto">
-    <ChatHeader/>
-    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+  return (
+    <div className="flex-1 flex flex-col justify-between overflow-auto">
+      <ChatHeader />
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
+            className={`chat ${
+              message.senderId === authUser._id ? "chat-end" : "chat-start"
+            }`}
             ref={messageEndRef}
           >
             <div className=" chat-image avatar">
@@ -62,8 +83,9 @@ const ChatContainer = () => {
           </div>
         ))}
       </div>
-    <MessageInput/>
-  </div>;
+      <MessageInput />
+    </div>
+  );
 };
 
 export default ChatContainer;

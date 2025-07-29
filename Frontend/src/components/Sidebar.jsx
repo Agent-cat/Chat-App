@@ -51,7 +51,7 @@ const Sidebar = () => {
               )}
             </div>
             <div className="flex flex-col">
-              <h1 className="text-balance">{user.fullname}</h1> 
+              <h1 className=" hidden lg:flex text-balance">{user.fullname}</h1> 
             {/* User info - only visible on larger screens */}
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate">{user.fullName}</div>
